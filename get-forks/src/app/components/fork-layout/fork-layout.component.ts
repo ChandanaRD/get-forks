@@ -12,6 +12,8 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   forkList;
   isValidForkList;
   currentPageIndex = 0;
+  showPrevious = false;
+  showNext  = false;
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
