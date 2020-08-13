@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { REPO_DETAILS } from 'src/app/config/config';
+import { REPO_DETAILS, END_POINTS } from 'src/app/config/config';
 import {Octokit} from '@octokit/core';
 import { USER_DETAILS } from 'src/app/config/user-details';
 import { BehaviorSubject } from 'rxjs';
@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   async getForkList(index?){
-    const forkList = await this.octokit.request('GET /repos/{owner}/{repo}/forks', {
+    const forkList = await this.octokit.request( `GET ${END_POINTS.FORKS}`, {
       owner: REPO_DETAILS.OWNER,
       repo: REPO_DETAILS.REPO,
       per_page: 10,
@@ -30,7 +30,7 @@ export class ApiService {
   }
 
   async followUser(userName){
-    return await this.octokit.request('PUT /user/following/{username}', {
+    return await this.octokit.request(`PUT ${END_POINTS.FOLLOW}`, {
       username: userName
     })
   }
