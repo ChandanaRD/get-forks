@@ -1,1 +1,49 @@
-<p>fork-layout works!</p>
+<div class='fork-layout-wrapper'>
+    <nav aria-label="List of forks">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+    </nav>
+    <ng-container *ngIf='isValidForkList else invaliduser'>
+        <div class="card card-wrapper" *ngFor="let user of forkList; let i=index" >
+            <div class="row no-gutters">
+              <div class="col-md-2">
+                <img [src]="user.owner.avatar_url" class="card-img" [alt]="user.full_name">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{user.full_name}}</h5>
+                  <p class="card-text">{{user.description}}</p>
+                  <p class="card-text">
+                      <a class='link'>{{user.html_url}}</a>
+                  </p>
+                  <p class="card-text">
+                      <span>licence:</span> {{user.license.name}}
+                  </p>
+                  <p class="card-text">
+                    <span>UserId:</span> {{user.owner.login}}
+                </p>
+                <p class="card-text">
+                    <button type="button" class="btn btn-success" [disabled] = 'user.followed' (click)="followUser(user.owner.login,i)">Follow</button>
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </ng-container>
+</div>
+<ng-template class='warning-container' #invaliduser>
+    Please check your Personal access token before accessing github APIs
+</ng-template>

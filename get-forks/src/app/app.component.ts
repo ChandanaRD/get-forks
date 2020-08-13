@@ -7,9 +7,4 @@ import { ApiService } from './services/API/api.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private apiService: ApiService) { }
-
-  ngOnInit() {
-    this.apiService.getForkList();
-  }
 }
