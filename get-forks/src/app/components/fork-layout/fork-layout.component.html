@@ -1,19 +1,34 @@
 <div class='fork-layout-wrapper'>
-    <nav aria-label="List of forks">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+    <nav aria-label="List of forks" class="nav-wrapper">
+        <ul class="pagination pagination-lg">
+          <ng-container *ngIf='showPrevious else previous'>
+            <li class="page-item" *ngIf='currentPageIndex -2 > 0' (click)="setForkList(currentPageIndex -3); showPrevious = false"><a class="page-link">{{currentPageIndex -2}}</a></li>
+          <li class="page-item" *ngIf='currentPageIndex -1 > 0' (click)="setForkList(currentPageIndex -2); showPrevious = false"><a class="page-link">{{currentPageIndex -1}}</a></li>
+          <li class="page-item" *ngIf='currentPageIndex > 0' (click)="setForkList(currentPageIndex -1); showPrevious = false"><a class="page-link">{{currentPageIndex}}</a></li>
+          </ng-container>
+          <ng-template #previous>
+            <li class="page-item" (click)="currentPageIndex>0 && showPrevious = true" [ngClass]="{'disabled':currentPageIndex===0}">
+              <a class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          </ng-template>
+          <li class="page-item active" (click)="setForkList(currentPageIndex)"><a class="page-link">{{currentPageIndex +1}}</a></li>
+          <li class="page-item" (click)="setForkList(currentPageIndex+1)"><a class="page-link">{{currentPageIndex +2}}</a></li>
+          <li class="page-item" (click)="setForkList(currentPageIndex+2)"><a class="page-link">{{currentPageIndex +3}}</a></li>
+          <ng-container *ngIf='showNext else next'>
+            <li class="page-item" (click)="setForkList(currentPageIndex +3); showNext = false"><a class="page-link">{{currentPageIndex +4}}</a></li>
+          <li class="page-item" (click)="setForkList(currentPageIndex +4); showNext = false"><a class="page-link">{{currentPageIndex +5}}</a></li>
+          <li class="page-item" (click)="setForkList(currentPageIndex +5); showNext = false"><a class="page-link">{{currentPageIndex +6}}</a></li>
+          </ng-container>
+          <ng-template #next>
+            <li class="page-item"  (click)="showNext = true">
+              <a class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ng-template>
+          
         </ul>
     </nav>
     <ng-container *ngIf='isValidForkList else invaliduser'>

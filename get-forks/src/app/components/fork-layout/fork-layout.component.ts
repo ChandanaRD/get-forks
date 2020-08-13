@@ -11,6 +11,7 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   forkList$;
   forkList;
   isValidForkList;
+  currentPageIndex = 0;
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   }
 
   setForkList(index?) {
+    this.currentPageIndex = index || index === 0 ? index: this.currentPageIndex;
     this.apiService.getForkList(index);
   }
 
