@@ -1,0 +1,3 @@
+export const USER_DETAILS = {
+    TOKEN: `62e3f5720d756595b8329a530a046c52d69e6fef`
+}
