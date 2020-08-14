@@ -30,3 +30,5 @@ Styling is done using Bootstrap
 @Otokit/core is used to access Github APIs
 
 For code maintenance, Husky and Prettier is used.
+
+For Further Details on Running the Application, Read: `get-forks/README.md`
