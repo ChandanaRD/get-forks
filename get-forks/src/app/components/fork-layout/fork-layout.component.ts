@@ -36,7 +36,10 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   followUser(user, index){
     this.apiService.followUser(user).then((response)=>{
       this.forkList[index]['followed']= response.status === 204;
-    })
+    },(reject) =>{
+      this.forkList[index].errorText = reject.status === 401 ? `Please check your Github Personal Access Token` : reject.message
+    }
+    )
   }
 
   ngOnDestroy(){

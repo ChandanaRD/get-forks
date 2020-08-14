@@ -53,12 +53,17 @@
                 <p class="card-text">
                     <button type="button" class="btn btn-success" [disabled] = 'user.followed' (click)="followUser(user.owner.login,i)">Follow</button>
                 </p>
+                  <p *ngIf='user.errorText' class="card-text error-container">
+                    <!-- <div class="error-container"> -->
+                      {{user.errorText}}
+                    <!-- </div> -->
+                  </p>
                 </div>
               </div>
             </div>
           </div>
     </ng-container>
 </div>
-<ng-template class='warning-container' #invaliduser>
+<ng-template class='error-container' #invaliduser>
     Please check your Personal access token before accessing github APIs
 </ng-template>

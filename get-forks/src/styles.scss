@@ -1,6 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+$red-border: rgba(158,28,35,.2);
+$red-background: #ffe3e6;
+$dark-grey: #24292e;
+
+
 *{
     font-size: 1.1rem;
     font-family: monospace;
 }
+
+.error-container{
+    border: 1px solid $red-border;
+    background-color: $red-background;
+    border-radius: .25rem;
+    color: $dark-grey;
+    padding: 1rem;
+}
+
