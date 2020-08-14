@@ -1,8 +1,8 @@
-# GET-FORKS:
+# Get-forks:
 
 Angular project to get list of forks of a repo using Github APIs
 
-# Configuration to use the project:
+### Configuration to use the project:
 
 Generate a personal access token from your github account from settings:
 
@@ -17,7 +17,7 @@ Change Repo and Owner Details:
     - By default repo is `facebook/react`
     - To check forks or a different repo, Open `get-forks/src/app/config/config.ts` and update the value of owner and repo
 
-# Additional Details:
+### Additional Details:
 
 All API endpoints are placed in a config file - `get-forks/src/app/config/config.ts` inside API_ENDPOINTS const
 
