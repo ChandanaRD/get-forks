@@ -16,11 +16,17 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   showNext  = false;
   constructor(private apiService: ApiService) { }
 
+  /**
+   * Initialize Component with Data
+   */
   ngOnInit() {
     this.subscriptions();
     this.apiService.getForkList();
   }
 
+  /**
+   * Subcribe to Subjects
+   */
   subscriptions(){
     this.forkList$ = this.apiService.forkList$.subscribe(list=>{
       this.forkList = list;
@@ -28,11 +34,24 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
     })
   }
 
+  /**
+   * Get fork data based on Page Index
+   * 
+   * @description Pagination
+   * @param index: Number
+   */
   setForkList(index?) {
     this.currentPageIndex = index || index === 0 ? index: this.currentPageIndex;
     this.apiService.getForkList(index);
   }
 
+  /**
+   * Follow a Github User
+   * If API fails, Display error
+   * 
+   * @param user: string - User to be followed
+   * @param index: number - index in fork List
+   */
   followUser(user, index){
     this.apiService.followUser(user).then((response)=>{
       this.forkList[index]['followed']= response.status === 204;
@@ -42,6 +61,9 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * Unsubscribe subjects
+   */
   ngOnDestroy(){
     if(this.forkList$){
       this.forkList$.unsubscribe();

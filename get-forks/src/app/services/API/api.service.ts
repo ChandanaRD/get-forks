@@ -9,12 +9,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
 
-  octokit = new Octokit({ auth: USER_DETAILS.TOKEN });
-  forkList$ = new BehaviorSubject<any>([]);
-  constructor() { 
-    // this.getForkList();
-  }
+  octokit = new Octokit({ auth: USER_DETAILS.TOKEN }); // To call Gihub APIs
+  forkList$ = new BehaviorSubject<any>([]); // To update forklist on API call
 
+  constructor() {  }
+
+  /**
+   * Calls API to get forks of a repo
+   * Repo details are fetched from Config
+   * @param index :Number Optional Parameter for Pagination
+   * @updates ForkList
+   */
   async getForkList(index?){
     const forkList = await this.octokit.request( `GET ${END_POINTS.FORKS}`, {
       owner: REPO_DETAILS.OWNER,
@@ -29,6 +34,10 @@ export class ApiService {
     }
   }
 
+  /**
+   * User in UserDetails config Starts following <UserName>
+   * @param userName : string - User to be Followed
+   */
   async followUser(userName){
     return await this.octokit.request(`PUT ${END_POINTS.FOLLOW}`, {
       username: userName
