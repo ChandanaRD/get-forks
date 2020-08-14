@@ -1,5 +1,6 @@
 <div class='fork-layout-wrapper'>
-    <nav aria-label="List of forks" class="nav-wrapper">
+    <ng-container *ngIf='isValidForkList else invaliduser'>
+      <nav aria-label="List of forks" class="nav-wrapper">
         <ul class="pagination pagination-lg">
           <ng-container *ngIf='showPrevious else previous'>
             <li class="page-item" *ngIf='currentPageIndex -2 > 0' (click)="setForkList(currentPageIndex -3); showPrevious = false"><a class="page-link">{{currentPageIndex -2}}</a></li>
@@ -30,40 +31,41 @@
           </ng-template>
           
         </ul>
-    </nav>
-    <ng-container *ngIf='isValidForkList else invaliduser'>
-        <div class="card card-wrapper" *ngFor="let user of forkList; let i=index" >
-            <div class="row no-gutters">
-              <div class="col-md-2">
-                <img [src]="user.owner.avatar_url" class="card-img" [alt]="user.full_name">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">{{user.full_name}}</h5>
-                  <p class="card-text">{{user.description}}</p>
-                  <p class="card-text">
-                      <a class='link'>{{user.html_url}}</a>
-                  </p>
-                  <p class="card-text">
-                      <span>licence:</span> {{user.license.name}}
-                  </p>
-                  <p class="card-text">
-                    <span>UserId:</span> {{user.owner.login}}
+      </nav>
+      <div class="card m-1" *ngFor="let user of forkList; let i=index" >
+          <div class="row no-gutters">
+            <div class="col-md-2">
+              <img [src]="user.owner.avatar_url" class="card-img" [alt]="user.full_name">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{user.full_name}}</h5>
+                <p class="card-text">{{user.description}}</p>
+                <p class="card-text">
+                    <a class='link'>{{user.html_url}}</a>
                 </p>
                 <p class="card-text">
-                    <button type="button" class="btn btn-success" [disabled] = 'user.followed' (click)="followUser(user.owner.login,i)">Follow</button>
+                    <span>licence:</span> {{user.license.name}}
                 </p>
-                  <p *ngIf='user.errorText' class="card-text error-container">
-                    <!-- <div class="error-container"> -->
-                      {{user.errorText}}
-                    <!-- </div> -->
-                  </p>
-                </div>
+                <p class="card-text">
+                  <span>UserId:</span> {{user.owner.login}}
+              </p>
+              <p class="card-text">
+                  <button type="button" class="btn btn-success" [disabled] = 'user.followed' (click)="followUser(user.owner.login,i)">Follow</button>
+              </p>
+                <p *ngIf='user.errorText' class="card-text error-container">
+                  <!-- <div class="error-container"> -->
+                    {{user.errorText}}
+                  <!-- </div> -->
+                </p>
               </div>
             </div>
           </div>
+      </div>
     </ng-container>
+    <ng-template #invaliduser>
+      <div class='error-container'>
+        {{messages.CHECK_AUTH}}
+      </div>
+    </ng-template>
 </div>
-<ng-template class='error-container' #invaliduser>
-    Please check your Personal access token before accessing github APIs
-</ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from 'src/app/services/API/api.service';
+import { MESSAGES } from 'src/app/config/config';
 
 @Component({
   selector: 'app-fork-layout',
@@ -14,6 +15,7 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
   currentPageIndex = 0;
   showPrevious = false;
   showNext  = false;
+  messages = MESSAGES;
   constructor(private apiService: ApiService) { }
 
   /**
@@ -56,7 +58,7 @@ export class ForkLayoutComponent implements OnInit, OnDestroy {
     this.apiService.followUser(user).then((response)=>{
       this.forkList[index]['followed']= response.status === 204;
     },(reject) =>{
-      this.forkList[index].errorText = reject.status === 401 ? `Please check your Github Personal Access Token` : reject.message
+      this.forkList[index].errorText = reject.status === 401 ? MESSAGES.CHECK_AUTH : reject.message
     }
     )
   }
