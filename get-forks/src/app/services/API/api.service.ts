@@ -24,8 +24,8 @@ export class ApiService {
     const forkList = await this.octokit.request( `GET ${END_POINTS.FORKS}`, {
       owner: REPO_DETAILS.OWNER,
       repo: REPO_DETAILS.REPO,
-      per_page: 10,
-      page: index ? index : 0
+      per_page: 10, // Gets 10 Forks
+      page: index ? index : 0 // Gets 1st page
     })
     if(forkList.status===200){
       this.forkList$.next(forkList.data);

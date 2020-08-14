@@ -27,4 +27,6 @@ A service has been created to handle all API calls
 
 Styling is done using Bootstrap
 
+@Otokit/core is used to access Github APIs
+
 For code maintenance, Husky and Prettier is used.
